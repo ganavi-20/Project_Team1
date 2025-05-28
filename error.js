@@ -59,4 +59,23 @@ const errorHandler = (err, req, res, next) => {
   });
 };
 
+// 404 handler
+const notFoundHandler = (req, res) => {
+  res.status(404).json({
+    success: false,
+    error: 'Endpoint not found',
+    message: `Cannot ${req.method} ${req.originalUrl}`,
+    availableEndpoints: [
+      'GET /api/health',
+      'POST /api/generate',
+      'POST /api/generate-batch',
+      'POST /api/check-strength',
+      'GET /api/character-sets',
+      'POST /api/generate-passphrase',
+      'POST /api/analyze-bulk',
+      'GET /api/stats'
+    ],
+    timestamp: new Date().toISOString()
+  });
+};
 
