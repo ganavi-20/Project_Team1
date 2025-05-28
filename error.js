@@ -144,4 +144,18 @@ const validateStrengthRequest = (req, res, next) => {
       error: 'Password is required'
     });
   }
+ if (typeof password !== 'string') {
+    return res.status(400).json({
+      success: false,
+      error: 'Password must be a string'
+    });
+  }
+
+  if (password.length === 0) {
+    return res.status(400).json({
+      success: false,
+      error: 'Password cannot be empty'
+    });
+  }
+
 
