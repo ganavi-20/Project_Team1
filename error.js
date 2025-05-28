@@ -158,4 +158,26 @@ const validateStrengthRequest = (req, res, next) => {
     });
   }
 
+ if (password.length > 1000) {
+    return res.status(400).json({
+      success: false,
+      error: 'Password too long for analysis (max 1000 characters)'
+    });
+  }
+
+  next();
+};
+
+// Validation middleware for passphrase generation
+const validatePassphraseRequest = (req, res, next) => {
+  const { wordCount, separator } = req.body;
+
+  if (wordCount !== undefined) {
+    if (typeof wordCount !== 'number' || wordCount < 2 || wordCount > 10) {
+      return res.status(400).json({
+        success: false,
+        error: 'Word count must be a number between 2 and 10'
+      });
+    }
+  }
 
