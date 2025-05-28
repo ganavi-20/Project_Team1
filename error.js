@@ -10,7 +10,7 @@ const errorHandler = (err, req, res, next) => {
     userAgent: req.get('User-Agent')
   });
 
-// Handle specific error types
+  // Handle specific error types
   if (err.name === 'ValidationError') {
     return res.status(400).json({
       success: false,
@@ -39,7 +39,8 @@ const errorHandler = (err, req, res, next) => {
       error: 'Invalid request format'
     });
   }
- // Handle rate limiting errors
+
+  // Handle rate limiting errors
   if (err.status === 429) {
     return res.status(429).json({
       success: false,
@@ -78,6 +79,7 @@ const notFoundHandler = (req, res) => {
     timestamp: new Date().toISOString()
   });
 };
+
 // Validation middleware for password generation
 const validatePasswordRequest = (req, res, next) => {
   const { length, includeUpper, includeLower, includeNumbers, includeSymbols } = req.body;
@@ -91,7 +93,8 @@ const validatePasswordRequest = (req, res, next) => {
       });
     }
   }
-// Validate boolean flags
+
+  // Validate boolean flags
   const booleanFields = ['includeUpper', 'includeLower', 'includeNumbers', 'includeSymbols', 'excludeSimilar'];
   for (const field of booleanFields) {
     if (req.body[field] !== undefined && typeof req.body[field] !== 'boolean') {
@@ -101,7 +104,8 @@ const validatePasswordRequest = (req, res, next) => {
       });
     }
   }
-// Ensure at least one character type is selected
+
+  // Ensure at least one character type is selected
   const hasAtLeastOneType = 
     (includeUpper !== false) || 
     (includeLower !== false) || 
@@ -130,7 +134,8 @@ const validateBatchRequest = (req, res, next) => {
       });
     }
   }
-// Validate other password options
+
+  // Validate other password options
   validatePasswordRequest(req, res, next);
 };
 
@@ -144,7 +149,8 @@ const validateStrengthRequest = (req, res, next) => {
       error: 'Password is required'
     });
   }
- if (typeof password !== 'string') {
+
+  if (typeof password !== 'string') {
     return res.status(400).json({
       success: false,
       error: 'Password must be a string'
@@ -158,7 +164,7 @@ const validateStrengthRequest = (req, res, next) => {
     });
   }
 
- if (password.length > 1000) {
+  if (password.length > 1000) {
     return res.status(400).json({
       success: false,
       error: 'Password too long for analysis (max 1000 characters)'
@@ -180,7 +186,8 @@ const validatePassphraseRequest = (req, res, next) => {
       });
     }
   }
-if (separator !== undefined) {
+
+  if (separator !== undefined) {
     if (typeof separator !== 'string' || separator.length > 5) {
       return res.status(400).json({
         success: false,
@@ -205,7 +212,7 @@ const requestLogger = (req, res, next) => {
     console.log(`${new Date().toISOString()} - ${req.method} ${req.url} - ${res.statusCode} - ${duration}ms`);
   });
 
- next();
+  next();
 };
 
 // Security headers middleware (additional to helmet)
