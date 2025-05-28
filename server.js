@@ -26,3 +26,5 @@ app.use('/api', passwordRoutes);
 app.use(errorHandler);
 // 404 handler
 app.use('*', notFoundHandler);
+// Start server
+app.listen(PORT, () => {
