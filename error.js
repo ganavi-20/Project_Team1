@@ -101,4 +101,21 @@ const validatePasswordRequest = (req, res, next) => {
       });
     }
   }
+// Ensure at least one character type is selected
+  const hasAtLeastOneType = 
+    (includeUpper !== false) || 
+    (includeLower !== false) || 
+    (includeNumbers !== false) || 
+    (includeSymbols === true);
+
+  if (!hasAtLeastOneType) {
+    return res.status(400).json({
+      success: false,
+      error: 'At least one character type must be selected'
+    });
+  }
+
+  next();
+};
+
 
