@@ -124,4 +124,21 @@ router.get('/character-sets', (req, res) => {
     });
   } catch (error) {
     res.status(500).json({
+ success: false,
+      error: 'Failed to retrieve character sets'
+    });
+  }
+});
+
+// Generate passphrase
+router.post('/generate-passphrase', (req, res) => {
+  try {
+    const options = req.body;
+    
+    const result = generatePassphrase(options);
+
+    res.json({
+      success: true,
+      ...result
+    });
 
