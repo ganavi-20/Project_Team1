@@ -46,3 +46,10 @@ const password = generateSecurePassword(options);
        hasSymbols: analysis.hasSymbols
       }
     });
+	   } catch (error) {
+    res.status(400).json({
+      success: false,
+      error: error.message
+    });
+  }
+});
