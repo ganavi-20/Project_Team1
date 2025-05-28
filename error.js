@@ -78,4 +78,17 @@ const notFoundHandler = (req, res) => {
     timestamp: new Date().toISOString()
   });
 };
+// Validation middleware for password generation
+const validatePasswordRequest = (req, res, next) => {
+  const { length, includeUpper, includeLower, includeNumbers, includeSymbols } = req.body;
+
+  // Validate length
+  if (length !== undefined) {
+    if (typeof length !== 'number' || length < 4 || length > 128) {
+      return res.status(400).json({
+        success: false,
+        error: 'Length must be a number between 4 and 128'
+      });
+    }
+  }
 
