@@ -36,3 +36,7 @@ app.listen(PORT, () => {
   console.log('  POST /api/generate-batch');
 	 console.log('  POST /api/check-strength');
   console.log('  GET  /api/character-sets');
+	console.log('  POST /api/generate-passphrase');
+});
+
+module.exports = app;
