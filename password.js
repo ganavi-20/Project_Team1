@@ -22,4 +22,10 @@ router.post('/generate', (req, res) => {
   try {
     const options = req.body;
 
-
+ // Validate options
+    if (options.length && (options.length < 4 || options.length > 128)) {
+      return res.status(400).json({
+        success: false,
+        error: 'Password length must be between 4 and 128 characters'
+      });
+    }
