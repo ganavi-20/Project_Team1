@@ -64,3 +64,11 @@ router.post('/generate-batch', (req, res) => {
       count: passwords.length,
       options: options
     });
+	   } catch (error) {
+    res.status(400).json({
+      success: false,
+      error: error.message
+    });
+  }
+});
+
