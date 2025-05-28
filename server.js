@@ -20,3 +20,6 @@ const limiter = rateLimit({
   }
 });
 app.use('/api/', limiter);
+// Routes
+app.use('/api', passwordRoutes);
+
