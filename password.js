@@ -164,3 +164,21 @@ const results = passwords.map((password, index) => {
       acc[r.strength] = (acc[r.strength] || 0) + 1;
       return acc;
     }, {});
+res.json({
+      success: true,
+      results,
+      summary: {
+        total: passwords.length,
+        analyzed: validResults.length,
+        errors: passwords.length - validResults.length,
+        averageScore: Math.round(avgScore * 100) / 100,
+        strengthDistribution
+      }
+    });
+  } catch (error) {
+    res.status(400).json({
+      success: false,
+      error: error.message
+    });
+  }
+});
