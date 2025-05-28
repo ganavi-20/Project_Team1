@@ -155,4 +155,12 @@ const results = passwords.map((password, index) => {
         };
       }
     });
-
+// Calculate summary statistics
+    const validResults = results.filter(r => !r.error);
+    const avgScore = validResults.length > 0 ? 
+      validResults.reduce((sum, r) => sum + r.score, 0) / validResults.length : 0;
+    
+    const strengthDistribution = validResults.reduce((acc, r) => {
+      acc[r.strength] = (acc[r.strength] || 0) + 1;
+      return acc;
+    }, {});
