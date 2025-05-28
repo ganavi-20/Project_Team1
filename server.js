@@ -32,3 +32,5 @@ app.listen(PORT, () => {
   console.log(Health check: http://localhost:${PORT}/api/health);
 	   console.log('\nAvailable endpoints:');
   console.log('  GET  /api/health');
+	   console.log('  POST /api/generate');
+  console.log('  POST /api/generate-batch');
