@@ -88,4 +88,16 @@ router.post('/check-strength', (req, res) => {
         error: 'Password must be a string'
       });
     }
-
+ const analysis = analyzePassword(password, options);
+    
+    res.json({
+      success: true,
+      ...analysis
+    });
+  } catch (error) {
+    res.status(400).json({
+      success: false,
+      error: error.message
+    });
+  }
+});
