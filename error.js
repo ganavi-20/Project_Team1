@@ -91,4 +91,14 @@ const validatePasswordRequest = (req, res, next) => {
       });
     }
   }
+// Validate boolean flags
+  const booleanFields = ['includeUpper', 'includeLower', 'includeNumbers', 'includeSymbols', 'excludeSimilar'];
+  for (const field of booleanFields) {
+    if (req.body[field] !== undefined && typeof req.body[field] !== 'boolean') {
+      return res.status(400).json({
+        success: false,
+        error: `${field} must be a boolean value`
+      });
+    }
+  }
 
