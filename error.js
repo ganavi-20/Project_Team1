@@ -118,4 +118,16 @@ const validatePasswordRequest = (req, res, next) => {
   next();
 };
 
+// Validation middleware for batch generation
+const validateBatchRequest = (req, res, next) => {
+  const { count } = req.body;
+
+  if (count !== undefined) {
+    if (typeof count !== 'number' || count < 1 || count > 20) {
+      return res.status(400).json({
+        success: false,
+        error: 'Count must be a number between 1 and 20'
+      });
+    }
+  }
 
