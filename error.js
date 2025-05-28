@@ -180,4 +180,29 @@ const validatePassphraseRequest = (req, res, next) => {
       });
     }
   }
+if (separator !== undefined) {
+    if (typeof separator !== 'string' || separator.length > 5) {
+      return res.status(400).json({
+        success: false,
+        error: 'Separator must be a string with maximum 5 characters'
+      });
+    }
+  }
+
+  next();
+};
+
+// Request logging middleware
+const requestLogger = (req, res, next) => {
+  const start = Date.now();
+  
+  // Log request
+  console.log(`${new Date().toISOString()} - ${req.method} ${req.url} - IP: ${req.ip}`);
+  
+  // Log response when finished
+  res.on('finish', () => {
+    const duration = Date.now() - start;
+    console.log(`${new Date().toISOString()} - ${req.method} ${req.url} - ${res.statusCode} - ${duration}ms`);
+  });
+
 
