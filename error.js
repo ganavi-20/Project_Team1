@@ -205,4 +205,23 @@ const requestLogger = (req, res, next) => {
     console.log(`${new Date().toISOString()} - ${req.method} ${req.url} - ${res.statusCode} - ${duration}ms`);
   });
 
+ next();
+};
 
+// Security headers middleware (additional to helmet)
+const securityHeaders = (req, res, next) => {
+  res.setHeader('X-API-Version', '1.0.0');
+  res.setHeader('X-Service', 'Password-Generator-API');
+  next();
+};
+
+module.exports = {
+  errorHandler,
+  notFoundHandler,
+  validatePasswordRequest,
+  validateBatchRequest,
+  validateStrengthRequest,
+  validatePassphraseRequest,
+  requestLogger,
+  securityHeaders
+};
