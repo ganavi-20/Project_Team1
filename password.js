@@ -29,3 +29,6 @@ router.post('/generate', (req, res) => {
         error: 'Password length must be between 4 and 128 characters'
       });
     }
+const password = generateSecurePassword(options);
+    const analysis = analyzePassword(password, options);
+    
