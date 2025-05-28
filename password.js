@@ -71,4 +71,7 @@ router.post('/generate-batch', (req, res) => {
     });
   }
 });
-
+// Check password strength
+router.post('/check-strength', (req, res) => {
+  try {
+    const { password, options = {} } = req.body;
