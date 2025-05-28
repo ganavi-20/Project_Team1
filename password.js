@@ -140,3 +140,19 @@ router.post('/generate-passphrase', (req, res) => {
     });
   }
 });
+const results = passwords.map((password, index) => {
+      try {
+        const analysis = analyzePassword(password, options);
+        return {
+          index,
+          password: password.substring(0, 20) + (password.length > 20 ? '...' : ''), // Truncate for privacy
+          ...analysis
+        };
+      } catch (error) {
+        return {
+          index,
+          error: error.message
+        };
+      }
+    });
+
