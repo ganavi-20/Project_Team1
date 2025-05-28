@@ -75,3 +75,17 @@ router.post('/generate-batch', (req, res) => {
 router.post('/check-strength', (req, res) => {
   try {
     const { password, options = {} } = req.body;
+	   if (!password) {
+      return res.status(400).json({
+        success: false,
+        error: 'Password is required'
+      });
+    }
+
+    if (typeof password !== 'string') {
+      return res.status(400).json({
+        success: false,
+        error: 'Password must be a string'
+      });
+    }
+
