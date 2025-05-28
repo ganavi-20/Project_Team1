@@ -29,4 +29,6 @@ app.use('*', notFoundHandler);
 // Start server
 app.listen(PORT, () => {
  console.log(Password Generator API running on port ${PORT});
-  console.log(Health check: http://localhost:${PORT}/api/health);	
+  console.log(Health check: http://localhost:${PORT}/api/health);
+	   console.log('\nAvailable endpoints:');
+  console.log('  GET  /api/health');
