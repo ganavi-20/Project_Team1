@@ -58,3 +58,9 @@ router.post('/generate-batch', (req, res) => {
   try {
     const { count = 5, ...options } = req.body;
 	  const passwords = generateBatchPasswords(count, options);
+	  res.json({
+      success: true,
+      passwords,
+      count: passwords.length,
+      options: options
+    });
