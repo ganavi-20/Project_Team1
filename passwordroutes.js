@@ -141,4 +141,24 @@ router.post('/generate-passphrase', (req, res) => {
       success: true,
       ...result
     });
+} catch (error) {
+    res.status(400).json({
+      success: false,
+      error: error.message
+    });
+  }
+});
+
+// Bulk password analysis
+router.post('/analyze-bulk', (req, res) => {
+  try {
+    const { passwords, options = {} } = req.body;
+    
+    if (!Array.isArray(passwords)) {
+      return res.status(400).json({
+        success: false,
+        error: 'Passwords must be provided as an array'
+      });
+    }
+
 
