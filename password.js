@@ -53,3 +53,7 @@ const password = generateSecurePassword(options);
     });
   }
 });
+// Generate multiple passwords
+router.post('/generate-batch', (req, res) => {
+  try {
+    const { count = 5, ...options } = req.body;
