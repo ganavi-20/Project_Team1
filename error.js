@@ -130,4 +130,18 @@ const validateBatchRequest = (req, res, next) => {
       });
     }
   }
+// Validate other password options
+  validatePasswordRequest(req, res, next);
+};
+
+// Validation middleware for strength checking
+const validateStrengthRequest = (req, res, next) => {
+  const { password } = req.body;
+
+  if (!password) {
+    return res.status(400).json({
+      success: false,
+      error: 'Password is required'
+    });
+  }
 
