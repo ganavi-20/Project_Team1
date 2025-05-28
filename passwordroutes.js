@@ -70,4 +70,22 @@ router.post('/generate-batch', (req, res) => {
       options: options
     });
   } catch (error) {
+res.status(400).json({
+      success: false,
+      error: error.message
+    });
+  }
+});
+
+// Check password strength
+router.post('/check-strength', (req, res) => {
+  try {
+    const { password, options = {} } = req.body;
+    
+    if (!password) {
+      return res.status(400).json({
+        success: false,
+        error: 'Password is required'
+      });
+    }
 
