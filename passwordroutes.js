@@ -212,4 +212,42 @@ router.post('/analyze-bulk', (req, res) => {
   }
 });
 
+// Get password generation statistics
+router.get('/stats', (req, res) => {
+  try {
+    res.json({
+      success: true,
+      statistics: {
+        supportedLengths: { min: 4, max: 128 },
+        characterSets: {
+          uppercase: 26,
+          lowercase: 26,
+          numbers: 10,
+          symbols: 29,
+          total: 91
+        },
+        strengthLevels: ['Very Weak', 'Weak', 'Medium', 'Strong', 'Very Strong'],
+        recommendations: [
+          'Use at least 12 characters',
+          'Include uppercase and lowercase letters',
+          'Include numbers and symbols',
+          'Avoid common words or patterns',
+          'Use unique passwords for each account'
+        ],
+        securityFeatures: [
+          'Cryptographically secure random generation',
+          'Entropy calculation',
+          'Strength analysis with feedback',
+          'Character type enforcement',
+          'Similar character exclusion option'
+        ]
+      }
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: 'Failed to retrieve statistics'
+    });
+  }
+});
 
