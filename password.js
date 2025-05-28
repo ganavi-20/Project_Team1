@@ -31,4 +31,11 @@ router.post('/generate', (req, res) => {
     }
 const password = generateSecurePassword(options);
     const analysis = analyzePassword(password, options);
-    
+     res.json({
+      success: true,
+      password,
+      strength: analysis.strength,
+      score: analysis.score,
+      feedback: analysis.feedback,
+      length: analysis.length,
+      entropy: analysis.entropy,
