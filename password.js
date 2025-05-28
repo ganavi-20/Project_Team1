@@ -57,3 +57,4 @@ const password = generateSecurePassword(options);
 router.post('/generate-batch', (req, res) => {
   try {
     const { count = 5, ...options } = req.body;
+	  const passwords = generateBatchPasswords(count, options);
