@@ -24,3 +24,5 @@ app.use('/api/', limiter);
 app.use('/api', passwordRoutes);
 // Error handling middleware
 app.use(errorHandler);
+// 404 handler
+app.use('*', notFoundHandler);
