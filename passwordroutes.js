@@ -108,4 +108,20 @@ router.post('/check-strength', (req, res) => {
     });
   }
 });
+// Get character sets information
+router.get('/character-sets', (req, res) => {
+  try {
+    const characterSets = getCharacterSets();
+    
+    res.json({
+      success: true,
+      characterSets,
+      totalPossibleCombinations: {
+        withoutSymbols: Math.pow(62, 12), // Upper + Lower + Numbers for 12 chars
+        withSymbols: Math.pow(94, 12), // All characters for 12 chars
+        note: 'Calculations shown for 12-character passwords'
+      }
+    });
+  } catch (error) {
+    res.status(500).json({
 
