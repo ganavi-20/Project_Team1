@@ -183,4 +183,33 @@ router.post('/analyze-bulk', (req, res) => {
         };
       }
     });
+  // Calculate summary statistics
+    const validResults = results.filter(r => !r.error);
+    const avgScore = validResults.length > 0 ? 
+      validResults.reduce((sum, r) => sum + r.score, 0) / validResults.length : 0;
+    
+    const strengthDistribution = validResults.reduce((acc, r) => {
+      acc[r.strength] = (acc[r.strength] || 0) + 1;
+      return acc;
+    }, {});
+
+    res.json({
+      success: true,
+      results,
+      summary: {
+        total: passwords.length,
+        analyzed: validResults.length,
+        errors: passwords.length - validResults.length,
+        averageScore: Math.round(avgScore * 100) / 100,
+        strengthDistribution
+      }
+    });
+  } catch (error) {
+    res.status(400).json({
+      success: false,
+      error: error.message
+    });
+  }
+});
+
 
