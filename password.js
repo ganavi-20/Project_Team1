@@ -182,3 +182,11 @@ res.json({
     });
   }
 });
+// Get password generation statistics
+router.get('/stats', (req, res) => {
+  try {
+    res.json({
+      success: true,
+      statistics: {
+        supportedLengths: { min: 4, max: 128 },
+
