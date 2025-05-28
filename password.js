@@ -17,4 +17,9 @@ router.get('/health', (req, res) => {
     version: '1.0.0'
   });
 });
+// Generate single password
+router.post('/generate', (req, res) => {
+  try {
+    const options = req.body;
+
 
