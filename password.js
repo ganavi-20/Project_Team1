@@ -39,3 +39,10 @@ const password = generateSecurePassword(options);
       feedback: analysis.feedback,
       length: analysis.length,
       entropy: analysis.entropy,
+      characteristics: {
+      hasUppercase: analysis.hasUppercase,
+      hasLowercase: analysis.hasLowercase,
+      hasNumbers: analysis.hasNumbers,
+       hasSymbols: analysis.hasSymbols
+      }
+    });
