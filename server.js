@@ -11,3 +11,5 @@ const PORT = process.env.PORT || 3000;
 app.use(helmet());
 app.use(cors());
 app.use(express.json());
+// Rate limiting - 100 requests per 15 minutes per IP
+const limiter = rateLimit({
