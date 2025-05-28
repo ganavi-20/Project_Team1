@@ -122,3 +122,21 @@ router.get('/character-sets', (req, res) => {
     });
   }
 });
+// Generate passphrase
+router.post('/generate-passphrase', (req, res) => {
+  try {
+    const options = req.body;
+
+    const result = generatePassphrase(options);
+
+    res.json({
+      success: true,
+      ...result
+    });
+  } catch (error) {
+    res.status(400).json({
+      success: false,
+      error: error.message
+    });
+  }
+});
