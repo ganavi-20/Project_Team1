@@ -161,4 +161,26 @@ router.post('/analyze-bulk', (req, res) => {
       });
     }
 
+ if (passwords.length > 50) {
+      return res.status(400).json({
+        success: false,
+        error: 'Maximum 50 passwords can be analyzed at once'
+      });
+    }
+
+    const results = passwords.map((password, index) => {
+      try {
+        const analysis = analyzePassword(password, options);
+        return {
+          index,
+          password: password.substring(0, 20) + (password.length > 20 ? '...' : ''), // Truncate for privacy
+          ...analysis
+        };
+      } catch (error) {
+        return {
+          index,
+          error: error.message
+        };
+      }
+    });
 
