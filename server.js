@@ -34,3 +34,5 @@ app.listen(PORT, () => {
   console.log('  GET  /api/health');
 	   console.log('  POST /api/generate');
   console.log('  POST /api/generate-batch');
+	 console.log('  POST /api/check-strength');
+  console.log('  GET  /api/character-sets');
