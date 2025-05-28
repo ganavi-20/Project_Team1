@@ -39,4 +39,24 @@ const errorHandler = (err, req, res, next) => {
       error: 'Invalid request format'
     });
   }
+ // Handle rate limiting errors
+  if (err.status === 429) {
+    return res.status(429).json({
+      success: false,
+      error: 'Too many requests. Please try again later.',
+      retryAfter: err.retryAfter
+    });
+  }
+
+  // Default error response
+  res.status(err.status || 500).json({
+    success: false,
+    error: process.env.NODE_ENV === 'production' 
+      ? 'Internal server error' 
+      : err.message,
+    timestamp: new Date().toISOString(),
+    ...(process.env.NODE_ENV !== 'production' && { stack: err.stack })
+  });
+};
+
 
