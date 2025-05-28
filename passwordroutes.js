@@ -24,7 +24,9 @@ router.get('/health', (req, res) => {
 router.post('/generate', (req, res) => {
   try {
     const options = req.body;
- if (options.length && (options.length < 4 || options.length > 128)) {
+    
+    // Validate options
+    if (options.length && (options.length < 4 || options.length > 128)) {
       return res.status(400).json({
         success: false,
         error: 'Password length must be between 4 and 128 characters'
@@ -35,7 +37,7 @@ router.post('/generate', (req, res) => {
     const analysis = analyzePassword(password, options);
     
     res.json({
- success: true,
+      success: true,
       password,
       strength: analysis.strength,
       score: analysis.score,
@@ -56,6 +58,7 @@ router.post('/generate', (req, res) => {
     });
   }
 });
+
 // Generate multiple passwords
 router.post('/generate-batch', (req, res) => {
   try {
@@ -70,7 +73,7 @@ router.post('/generate-batch', (req, res) => {
       options: options
     });
   } catch (error) {
-res.status(400).json({
+    res.status(400).json({
       success: false,
       error: error.message
     });
@@ -88,7 +91,8 @@ router.post('/check-strength', (req, res) => {
         error: 'Password is required'
       });
     }
- if (typeof password !== 'string') {
+
+    if (typeof password !== 'string') {
       return res.status(400).json({
         success: false,
         error: 'Password must be a string'
@@ -108,6 +112,7 @@ router.post('/check-strength', (req, res) => {
     });
   }
 });
+
 // Get character sets information
 router.get('/character-sets', (req, res) => {
   try {
@@ -124,7 +129,7 @@ router.get('/character-sets', (req, res) => {
     });
   } catch (error) {
     res.status(500).json({
- success: false,
+      success: false,
       error: 'Failed to retrieve character sets'
     });
   }
@@ -141,7 +146,7 @@ router.post('/generate-passphrase', (req, res) => {
       success: true,
       ...result
     });
-} catch (error) {
+  } catch (error) {
     res.status(400).json({
       success: false,
       error: error.message
@@ -161,7 +166,7 @@ router.post('/analyze-bulk', (req, res) => {
       });
     }
 
- if (passwords.length > 50) {
+    if (passwords.length > 50) {
       return res.status(400).json({
         success: false,
         error: 'Maximum 50 passwords can be analyzed at once'
@@ -183,7 +188,8 @@ router.post('/analyze-bulk', (req, res) => {
         };
       }
     });
-  // Calculate summary statistics
+
+    // Calculate summary statistics
     const validResults = results.filter(r => !r.error);
     const avgScore = validResults.length > 0 ? 
       validResults.reduce((sum, r) => sum + r.score, 0) / validResults.length : 0;
@@ -250,4 +256,5 @@ router.get('/stats', (req, res) => {
     });
   }
 });
+
 module.exports = router;
