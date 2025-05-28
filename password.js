@@ -189,4 +189,17 @@ router.get('/stats', (req, res) => {
       success: true,
       statistics: {
         supportedLengths: { min: 4, max: 128 },
-
+   characterSets: {
+          uppercase: 26,
+          lowercase: 26,
+          numbers: 10,
+          symbols: 29,
+          total: 91
+        },
+        strengthLevels: ['Very Weak', 'Weak', 'Medium', 'Strong', 'Very Strong'],
+        recommendations: [
+          'Use at least 12 characters',
+          'Include uppercase and lowercase letters',
+          'Include numbers and symbols',
+          'Avoid common words or patterns',
+          'Use unique passwords for each account'
