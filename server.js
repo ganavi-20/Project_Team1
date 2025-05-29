@@ -39,4 +39,4 @@ app.listen(PORT, () => {
 	console.log('  POST /api/generate-passphrase');
 });
 
-module.exports = appi i want it;
+module.exports = app;
